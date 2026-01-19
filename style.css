@@ -1,0 +1,256 @@
+:root{
+  --accent:#ff4d6d;
+  --shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:system-ui, -apple-system, Segoe UI, Roboto;
+  background:linear-gradient(180deg,#fff,#fff5f9);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.container{
+  width:100%;
+  max-width:720px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  padding:30px 20px;
+  text-align:center;
+}
+
+h1{
+  color:var(--accent);
+  margin-bottom:20px;
+}
+
+.cake-wrap{
+  position:relative;
+  display:flex;
+  justify-content:center;
+}
+
+.cake{
+  font-size:6rem;
+  cursor:pointer;
+  user-select:none;
+}
+
+.flame{
+  position:absolute;
+  top:10px;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+.flame .outer{
+  width:18px;
+  height:36px;
+  background:linear-gradient(#ffd166,#ff9f1c);
+  border-radius:50%;
+  animation:flicker .4s infinite;
+}
+
+.flame .inner{
+  width:10px;
+  height:22px;
+  background:linear-gradient(#fff,#ff4d6d);
+  border-radius:50%;
+  margin:auto;
+  margin-top:-28px;
+  animation:flicker .25s infinite;
+}
+
+@keyframes flicker{
+  0%{transform:scaleY(1)}
+  50%{transform:scaleY(.85)}
+  100%{transform:scaleY(1)}
+}
+
+.flame.out .outer,
+.flame.out .inner{
+  animation:none;
+  opacity:0;
+  transform:translateY(-10px) scale(.2);
+  transition:.4s ease;
+}
+
+.controls{
+  margin-top:25px;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+}
+
+button{
+  border:none;
+  padding:10px 18px;
+  border-radius:999px;
+  background:var(--accent);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+
+button.secondary{
+  background:#111;
+}
+
+.meter{
+  width:220px;
+  height:8px;
+  background:rgba(0,0,0,.1);
+  border-radius:999px;
+  margin:16px auto 0;
+  overflow:hidden;
+}
+
+.meter i{
+  display:block;
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#8bd3c7,#ff4d6d);
+}
+.center {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.hidden { display: none; }
+
+/* MESSAGE */
+#littleMsg {
+  font-size: 1.8rem;
+  animation: fadeIn 1s ease;
+}
+
+/* ENVELOPE */
+.envelope {
+  position: relative;
+  width: 200px;
+  height: 130px;
+  cursor: pointer;
+  animation: float 2s infinite ease-in-out;
+}
+
+.env-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ff4d6d;
+  border-radius: 8px;
+}
+
+.env-paper {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 180px;
+  height: 110px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.env-flap {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-top: 70px solid #ff7a92;
+  transform-origin: top;
+  transition: transform 0.6s ease;
+}
+
+.envelope.open .env-flap {
+  transform: rotateX(180deg);
+}
+
+/* LETTER CARD (POLAROID STYLE) */
+.letter {
+  animation: fadeUp 0.8s ease;
+}
+
+.polaroid {
+  background: white;
+  padding: 20px 20px 30px;
+  max-width: 600px;
+  text-align: left;
+  white-space: pre-wrap;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+  border-radius: 6px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+/* ---------- MOBILE FIRST POLISH ---------- */
+@media (max-width: 600px) {
+
+  /* Center spacing */
+  .center {
+    padding: 20px;
+    gap: 18px;
+  }
+
+  /* Message text */
+  #littleMsg {
+    font-size: 1.4rem;
+    padding: 0 10px;
+  }
+
+  /* Envelope scaling */
+  .envelope {
+    width: 160px;
+    height: 105px;
+  }
+
+  .env-paper {
+    width: 140px;
+    height: 85px;
+    font-size: 0.9rem;
+  }
+
+  .env-flap {
+    border-left: 80px solid transparent;
+    border-right: 80px solid transparent;
+    border-top: 55px solid #ff7a92;
+  }
+
+  /* Letter card */
+  .polaroid {
+    max-width: 92%;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    padding: 18px 16px 24px;
+  }
+}
