@@ -117,140 +117,76 @@ button.secondary{
   width:0%;
   background:linear-gradient(90deg,#8bd3c7,#ff4d6d);
 }
-.center {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 24px;
-  text-align: center;
+
+.center{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:24px;
+  text-align:center;
 }
 
-.hidden { display: none; }
+.hidden{display:none}
 
-/* MESSAGE */
-#littleMsg {
-  font-size: 1.8rem;
-  animation: fadeIn 1s ease;
+/* Envelope */
+.envelope{
+  position:relative;
+  width:200px;
+  height:130px;
+  cursor:pointer;
+  animation:float 2s infinite ease-in-out;
 }
 
-/* ENVELOPE */
-.envelope {
-  position: relative;
-  width: 200px;
-  height: 130px;
-  cursor: pointer;
-  animation: float 2s infinite ease-in-out;
+.env-back{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#ff4d6d;
+  border-radius:8px;
 }
 
-.env-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #ff4d6d;
-  border-radius: 8px;
+.env-paper{
+  position:absolute;
+  top:10px;
+  left:10px;
+  width:180px;
+  height:110px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  z-index:1;
 }
 
-.env-paper {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 180px;
-  height: 110px;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  z-index: 1;
+.env-flap{
+  position:absolute;
+  top:0;
+  width:0;
+  height:0;
+  border-left:100px solid transparent;
+  border-right:100px solid transparent;
+  border-top:70px solid #ff7a92;
+  transform-origin:top;
+  transition:transform .6s ease;
 }
 
-.env-flap {
-  position: absolute;
-  top: 0;
-  width: 0;
-  height: 0;
-  border-left: 100px solid transparent;
-  border-right: 100px solid transparent;
-  border-top: 70px solid #ff7a92;
-  transform-origin: top;
-  transition: transform 0.6s ease;
+.envelope.open .env-flap{
+  transform:rotateX(180deg);
 }
 
-.envelope.open .env-flap {
-  transform: rotateX(180deg);
+.polaroid{
+  background:#fff;
+  padding:20px 20px 30px;
+  max-width:600px;
+  white-space:pre-wrap;
+  box-shadow:0 15px 35px rgba(0,0,0,.25);
+  border-radius:6px;
 }
 
-/* LETTER CARD (POLAROID STYLE) */
-.letter {
-  animation: fadeUp 0.8s ease;
-}
-
-.polaroid {
-  background: white;
-  padding: 20px 20px 30px;
-  max-width: 600px;
-  text-align: left;
-  white-space: pre-wrap;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-  border-radius: 6px;
-  font-family: "Segoe UI", sans-serif;
-}
-
-/* ANIMATIONS */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-/* ---------- MOBILE FIRST POLISH ---------- */
-@media (max-width: 600px) {
-
-  /* Center spacing */
-  .center {
-    padding: 20px;
-    gap: 18px;
-  }
-
-  /* Message text */
-  #littleMsg {
-    font-size: 1.4rem;
-    padding: 0 10px;
-  }
-
-  /* Envelope scaling */
-  .envelope {
-    width: 160px;
-    height: 105px;
-  }
-
-  .env-paper {
-    width: 140px;
-    height: 85px;
-    font-size: 0.9rem;
-  }
-
-  .env-flap {
-    border-left: 80px solid transparent;
-    border-right: 80px solid transparent;
-    border-top: 55px solid #ff7a92;
-  }
-
-  /* Letter card */
-  .polaroid {
-    max-width: 92%;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    padding: 18px 16px 24px;
-  }
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
 }

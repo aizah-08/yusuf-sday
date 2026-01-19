@@ -1,6 +1,5 @@
 const flame = document.getElementById("flame");
 const cake = document.getElementById("cake");
-const music = document.getElementById("music");
 const meter = document.getElementById("meter");
 const micBtn = document.getElementById("micBtn");
 const blowBtn = document.getElementById("blowBtn");
@@ -8,11 +7,8 @@ const blowBtn = document.getElementById("blowBtn");
 let blown = false;
 let stream, ctx, analyser, data, raf;
 
-// Manual blow
 cake.onclick = blow;
 blowBtn.onclick = blow;
-
-// Mic toggle
 micBtn.onclick = toggleMic;
 
 function blow(){
@@ -20,16 +16,10 @@ function blow(){
   blown = true;
 
   flame.classList.add("out");
-
-  // autoplay music AFTER interaction
-  setTimeout(() => {
-    music.play().catch(()=>{});
-  }, 300);
-
   stopMic();
+  showAfter();
 }
 
-// -------- Mic Logic (simple & reliable) --------
 async function toggleMic(){
   if(stream){
     stopMic();
@@ -56,20 +46,18 @@ async function toggleMic(){
 
 function stopMic(){
   cancelAnimationFrame(raf);
-
   if(stream){
     stream.getTracks().forEach(t => t.stop());
     stream = null;
   }
   if(ctx) ctx.close();
-
   meter.style.width = "0%";
 }
 
 function detect(){
   analyser.getByteTimeDomainData(data);
-
   let sum = 0;
+
   for(let i=0;i<data.length;i++){
     const v = (data[i]-128)/128;
     sum += v*v;
@@ -85,18 +73,17 @@ function detect(){
 
   raf = requestAnimationFrame(detect);
 }
-function afterMicSuccess() {
-  startConfetti(); // your existing confetti
 
+function showAfter(){
   document.getElementById("afterBlow").classList.remove("hidden");
 
   setTimeout(() => {
     document.getElementById("littleMsg").classList.add("hidden");
     document.getElementById("envelope").classList.remove("hidden");
-  }, 4000);
+  }, 3000);
 }
 
-document.getElementById("envelope").addEventListener("click", () => {
+document.getElementById("envelope").onclick = () => {
   const env = document.getElementById("envelope");
   env.classList.add("open");
 
@@ -104,4 +91,4 @@ document.getElementById("envelope").addEventListener("click", () => {
     env.classList.add("hidden");
     document.getElementById("letterCard").classList.remove("hidden");
   }, 600);
-});
+};
