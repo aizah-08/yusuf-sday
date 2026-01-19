@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>For You ❤️</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="center">
+  <h2 id="msg">I have a little something for you…</h2>
+
+  <div id="envelope" class="envelope hidden">
+    <div class="env-back"></div>
+    <div class="env-paper">Tap 💌</div>
+    <div class="env-flap"></div>
+  </div>
+</div>
+
+<script>
+setTimeout(() => {
+  document.getElementById("msg").style.display = "none";
+  document.getElementById("envelope").classList.remove("hidden");
+}, 4000);
+
+document.getElementById("envelope").onclick = () => {
+  window.location.href = "letter.html";
+};
+</script>
+
+</body>
+</html>

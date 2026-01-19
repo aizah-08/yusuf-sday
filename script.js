@@ -1,94 +1,33 @@
 const flame = document.getElementById("flame");
 const cake = document.getElementById("cake");
-const meter = document.getElementById("meter");
-const micBtn = document.getElementById("micBtn");
 const blowBtn = document.getElementById("blowBtn");
 
 let blown = false;
-let stream, ctx, analyser, data, raf;
 
 cake.onclick = blow;
 blowBtn.onclick = blow;
-micBtn.onclick = toggleMic;
 
-function blow(){
-  if(blown) return;
+function blow() {
+  if (blown) return;
   blown = true;
 
   flame.classList.add("out");
-  stopMic();
-  showAfter();
-}
-
-async function toggleMic(){
-  if(stream){
-    stopMic();
-    micBtn.textContent = "Enable Mic";
-    return;
-  }
-
-  try{
-    stream = await navigator.mediaDevices.getUserMedia({ audio:true });
-    ctx = new AudioContext();
-    analyser = ctx.createAnalyser();
-    analyser.fftSize = 512;
-
-    const src = ctx.createMediaStreamSource(stream);
-    src.connect(analyser);
-    data = new Uint8Array(analyser.fftSize);
-
-    micBtn.textContent = "Stop Mic";
-    detect();
-  }catch{
-    alert("Microphone permission required");
-  }
-}
-
-function stopMic(){
-  cancelAnimationFrame(raf);
-  if(stream){
-    stream.getTracks().forEach(t => t.stop());
-    stream = null;
-  }
-  if(ctx) ctx.close();
-  meter.style.width = "0%";
-}
-
-function detect(){
-  analyser.getByteTimeDomainData(data);
-  let sum = 0;
-
-  for(let i=0;i<data.length;i++){
-    const v = (data[i]-128)/128;
-    sum += v*v;
-  }
-
-  const volume = Math.sqrt(sum/data.length);
-  meter.style.width = Math.min(100, volume * 300) + "%";
-
-  if(volume > 0.12 && !blown){
-    blow();
-    return;
-  }
-
-  raf = requestAnimationFrame(detect);
-}
-
-function showAfter(){
-  document.getElementById("afterBlow").classList.remove("hidden");
+  confettiBurst();
 
   setTimeout(() => {
-    document.getElementById("littleMsg").classList.add("hidden");
-    document.getElementById("envelope").classList.remove("hidden");
-  }, 3000);
+    window.location.href = "surprise.html";
+  }, 2500);
 }
 
-document.getElementById("envelope").onclick = () => {
-  const env = document.getElementById("envelope");
-  env.classList.add("open");
+function confettiBurst() {
+  for (let i = 0; i < 40; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.backgroundColor = `hsl(${Math.random() * 360},100%,70%)`;
+    c.style.animationDuration = 2 + Math.random() + "s";
+    document.body.appendChild(c);
 
-  setTimeout(() => {
-    env.classList.add("hidden");
-    document.getElementById("letterCard").classList.remove("hidden");
-  }, 600);
-};
+    setTimeout(() => c.remove(), 3000);
+  }
+}
