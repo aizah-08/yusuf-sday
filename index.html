@@ -3,25 +3,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Birthday ❤️</title>
+  <title>For You ❤️</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-  <h1>Happy Birthday Babee!! ❤️</h1>
+<div class="center">
+  <h2 id="msg">I have a little something for you…</h2>
 
-  <div class="cake-wrap">
-    <div class="cake" id="cake">🎂</div>
-    <div class="flame" id="flame">
-      <div class="outer"></div>
-      <div class="inner"></div>
-    </div>
+  <div id="envelope" class="envelope hidden">
+    <div class="env-back"></div>
+    <div class="env-paper">Tap 💌</div>
+    <div class="env-flap"></div>
   </div>
-
-  <button id="blowBtn">Blow Candle</button>
 </div>
 
-<script src="script.js"></script>
+<script>
+setTimeout(() => {
+  document.getElementById("msg").style.display = "none";
+  document.getElementById("envelope").classList.remove("hidden");
+}, 4000);
+
+document.getElementById("envelope").onclick = () => {
+  window.location.href = "letter.html";
+};
+</script>
+
 </body>
 </html>
